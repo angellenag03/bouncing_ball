@@ -8,8 +8,8 @@ public class BallAnimator implements Runnable {
     public static final int MAX_Y = 480;
     public static final int SIGN = -1;
 
-    public static final int DX = 10;
-    public static final int DY = 10;
+    public static int DX = 10;
+    public static int DY = 10;
     private Ellipse2D.Double ball;
 
     private int ballX;
@@ -49,11 +49,21 @@ public class BallAnimator implements Runnable {
             ball.x = ballX ;
             ball.y = ballY;
             try {
-                Thread.sleep(150L);
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
 
+    }
+    
+    public static void pauseBall(boolean isPaused) {
+        if (isPaused) {
+            DX = 0; 
+            DY = 0;
+        } else {
+            DX = 10; 
+            DY = 10;
+        }
     }
 }

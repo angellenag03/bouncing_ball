@@ -18,7 +18,9 @@ public class Board  extends JComponent
 
     private Thread ballAnimator;  // contrala el movimiento de la pelota
     private Thread boardRefresher;  // controla cada cuando se refresca el tablero
-
+    
+    public boolean isPaused;
+    
     public Board() {
         super();
 
@@ -74,7 +76,7 @@ public class Board  extends JComponent
         while ( true ) {
             repaint();
             try {
-                Thread.sleep(100L);
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                  LOG.warning( e.getMessage() );
             }
@@ -96,7 +98,12 @@ public class Board  extends JComponent
         ball.width = ball.width * 0.9;
         ball.height = ball.height * 0.9;
     }
-
+    
+    public void pause() {
+        isPaused = !isPaused;
+        BallAnimator.pauseBall(isPaused);
+    }
+    
     @Override
     public void keyTyped(KeyEvent e) {
         //System.out.println( e.getKeyChar() );
@@ -106,6 +113,9 @@ public class Board  extends JComponent
         }
         if( key == 'I' || key == 'i' ) {
             zoomIn();
+        }
+        if ( key == 'P' || key == 'p') {
+            pause();
         }
     }
 
